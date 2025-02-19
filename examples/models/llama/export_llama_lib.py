@@ -620,7 +620,11 @@ def _prepare_for_llama_export(args) -> LLMEdgeManager:
     )
 
     quantized = torch.load("/home/jackzhxng/torchrepos/executorch/fake_quantized_weights.pt")
-    breakpoint()
+    # Test run the model to trace.
+    edge_manager.model(
+        torch.tensor([[2, 3, 4]], dtype=torch.long),
+        {"input_pos": torch.tensor([0], dtype=torch.long)},
+    )
     # torch.testing.assert_close()
 
     # We want to do compute the actual ops in the precision of the dtype_override.
